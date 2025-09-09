@@ -20,13 +20,9 @@ export default function Home() {
         />
         <link rel="icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-
         {/* Open Graph / Twitter */}
         <meta property="og:type" content="website" />
-        <meta
-          property="og:title"
-          content="Clean Master — Nettoyage professionnel"
-        />
+        <meta property="og:title" content="Clean Master — Nettoyage professionnel" />
         <meta
           property="og:description"
           content="Nettoyage de vitres, locaux, toitures, panneaux solaires, terrasses. Devis gratuit sous 24h."
@@ -34,7 +30,6 @@ export default function Home() {
         <meta property="og:image" content="/logo-clean-master.png" />
         <meta property="og:url" content="https://cleanmaster.example" />
         <meta name="twitter:card" content="summary_large_image" />
-
         {/* JSON-LD LocalBusiness */}
         <script
           type="application/ld+json"
