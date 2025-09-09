@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #ffffff;
+  --fg: #0b0f19;
+}
+
+html, body, #__next {
+  height: 100%;
+}
+
+body {
+  background: linear-gradient(180deg, #ffffff 0%, #f7fafc 60%, #f0f6ff 100%);
+  color: var(--fg);
+}
+
+.container {
+  @apply max-w-6xl mx-auto px-4;
+}
+
+/* Utility */
+.card {
+  @apply bg-white/80 backdrop-blur border border-gray-100 shadow-soft rounded-2xl;
+}
+/* grain très léger */
+body::after{
+  content:"";
+  position:fixed; inset:0; pointer-events:none;
+  background-image: radial-gradient(rgba(0,0,0,.025) 1px, transparent 1px);
+  background-size: 3px 3px;
+  opacity:.35;
+}
+/* grain + light vignette futuriste */
+body::after{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:-1;
+  background-image: radial-gradient(rgba(0,0,0,.03) 1px, transparent 1px);
+  background-size: 3px 3px; opacity:.35;
+}
+body::before{
+  content:""; position:fixed; inset:-20% -10% auto -10%; height:40vh; pointer-events:none; z-index:-1;
+  background: radial-gradient(40% 50% at 80% 10%, rgba(37,99,235,.15), transparent 60%);
+  filter: blur(40px);
+}
+/* Décalage pour que les sections ne soient pas cachées par la navbar sticky */
+[id] {
+  scroll-margin-top: 6rem;
+}
