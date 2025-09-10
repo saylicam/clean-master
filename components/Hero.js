@@ -36,17 +36,18 @@ export default function Hero() {
             Un rendu impeccable, rapide et durable.
           </p>
 
-          {/* Boutons responsive */}
+          {/* Boutons */}
           <div className="mt-6 w-full max-w-md">
             <div className="flex flex-col sm:flex-row gap-3 w-full">
               <a
-                href="#devis"
+                href="#contact"
                 className="w-full sm:w-auto text-center px-5 py-3 rounded-full
                            bg-white text-black font-medium shadow
                            hover:opacity-90 transition"
               >
                 Demander un devis
               </a>
+
               <a
                 href="#services"
                 className="w-full sm:w-auto text-center px-5 py-3 rounded-full
@@ -62,4 +63,3 @@ export default function Hero() {
     </section>
   );
 }
-

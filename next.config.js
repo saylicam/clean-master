@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-  images: { unoptimized: true }
+  output: "export",          // génère /out
+  trailingSlash: true,       // /page/ -> /page/index.html (Apache friendly)
+  images: { unoptimized: true }, // pas d’optims côté serveur
 };
 module.exports = nextConfig;

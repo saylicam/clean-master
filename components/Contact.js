@@ -1,4 +1,3 @@
-// components/Contact.js
 import { useState } from "react";
 import { siteConfig } from "../lib/siteConfig"; // { company, phone, email, address }
 
@@ -15,10 +14,21 @@ function Field({ name, type = "text", label, required, autoComplete, className =
                    focus:border-black/60 focus:ring-4 focus:ring-black/5"
       />
       <span
-        className="pointer-events-none absolute left-3 top-3 px-1 text-gray-500 transition-all
-                   peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500
-                   peer-focus:-top-2 peer-focus:bg-white peer-focus:text-xs peer-focus:text-black/80
-                   peer-not-placeholder-shown:-top-2 peer-not-placeholder-shown:bg-white peer-not-placeholder-shown:text-xs"
+        className="
+          pointer-events-none absolute left-3 top-3 px-1 text-gray-500 transition-all
+          /* état vide */
+          peer-placeholder-shown:top-3 peer-placeholder-shown:text-base
+          /* focus */
+          peer-focus:-top-2 peer-focus:bg-white peer-focus:text-xs peer-focus:text-black/80
+          /* valeur tapée */
+          peer-[:not(:placeholder-shown)]:-top-2
+          peer-[:not(:placeholder-shown)]:bg-white
+          peer-[:not(:placeholder-shown)]:text-xs
+          /* auto-remplissage Chrome/Edge */
+          peer-[:-webkit-autofill]:-top-2
+          peer-[:-webkit-autofill]:bg-white
+          peer-[:-webkit-autofill]:text-xs
+        "
       >
         {label} {required && <sup className="text-red-500">*</sup>}
       </span>
@@ -30,7 +40,6 @@ export default function Contact() {
   const [sending, setSending] = useState(false);
   const to = siteConfig.email || "cleanmasterbe@gmail.com";
 
-  // On construit une URL mailto propre (Gmail s’ouvrira avec le contenu)
   const onSubmit = (e) => {
     e.preventDefault();
     if (sending) return;
@@ -53,9 +62,7 @@ export default function Contact() {
       `?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
     setSending(true);
-    // Ouvre le client mail (Gmail si configuré par l’utilisateur)
     window.location.href = url;
-    // petit délai pour réactiver le bouton si l’utilisateur revient
     setTimeout(() => setSending(false), 1000);
   };
 
@@ -89,10 +96,14 @@ export default function Contact() {
                              focus:border-black/60 focus:ring-4 focus:ring-black/5"
                 />
                 <span
-                  className="pointer-events-none absolute left-3 top-3 px-1 text-gray-500 transition-all
-                             peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500
-                             peer-focus:-top-2 peer-focus:bg-white peer-focus:text-xs peer-focus:text-black/80
-                             peer-not-placeholder-shown:-top-2 peer-not-placeholder-shown:bg-white peer-not-placeholder-shown:text-xs"
+                  className="
+                    pointer-events-none absolute left-3 top-3 px-1 text-gray-500 transition-all
+                    peer-placeholder-shown:top-3 peer-placeholder-shown:text-base
+                    peer-focus:-top-2 peer-focus:bg-white peer-focus:text-xs peer-focus:text-black/80
+                    peer-[:not(:placeholder-shown)]:-top-2
+                    peer-[:not(:placeholder-shown)]:bg-white
+                    peer-[:not(:placeholder-shown)]:text-xs
+                  "
                 >
                   Votre message <sup className="text-red-500">*</sup>
                 </span>
@@ -124,7 +135,7 @@ export default function Contact() {
             </form>
           </div>
 
-          {/* Info pane */}
+          {/* Info pane + réseaux */}
           <aside className="flex flex-col gap-6">
             <div className="rounded-2xl border border-white/60 bg-white/80 p-6 shadow-soft">
               <h3 className="text-lg font-semibold">{siteConfig.company || "Clean Master"}</h3>
@@ -155,16 +166,61 @@ export default function Contact() {
                   </p>
                 )}
               </div>
+
+              {/* Réseaux sociaux */}
+              <div className="mt-6">
+                <p className="text-sm text-gray-500 mb-2">Suivez-nous</p>
+                <div className="flex items-center gap-3">
+                  <a
+                    href="https://www.instagram.com/cleanmaster.be/?hl=fr"
+                    target="_blank" rel="noopener noreferrer" aria-label="Instagram"
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-full
+                               border border-gray-200 bg-white/90 text-gray-700 shadow
+                               transition hover:border-black/30 hover:bg-black hover:text-white"
+                    title="Instagram"
+                  >
+                    <svg className="size-5" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2.2A2.8 2.8 0 1 0 12 15.8 2.8 2.8 0 0 0 12 9.2zm5.3-.9a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2z"/>
+                    </svg>
+                  </a>
+
+                  <a
+                    href="https://www.facebook.com/profile.php?id=61559950247331"
+                    target="_blank" rel="noopener noreferrer" aria-label="Facebook"
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-full
+                               border border-gray-200 bg-white/90 text-gray-700 shadow
+                               transition hover:border-black/30 hover:bg-black hover:text-white"
+                    title="Facebook"
+                  >
+                    <svg className="size-5" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M22 12a10 10 0 1 0-11.6 9.9v-7h-2.6V12h2.6V9.7c0-2.6 1.5-4 3.8-4 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.7-1.6 1.5V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/>
+                    </svg>
+                  </a>
+
+                  <a
+                    href="https://www.tiktok.com/@cleanmaster_be"
+                    target="_blank" rel="noopener noreferrer" aria-label="TikTok"
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-full
+                               border border-gray-200 bg-white/90 text-gray-700 shadow
+                               transition hover:border-black/30 hover:bg-black hover:text-white"
+                    title="TikTok"
+                  >
+                    <svg className="size-5" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M21 8.2a6.8 6.8 0 0 1-4-1.3v7.2a6.1 6.1 0 1 1-6.1-6.1c.3 0 .6 0 .9.1v2.7a3.4 3.4 0 1 0 2.7 3.3V2.5h2.5a6.8 6.8 0 0 0 4 4v1.7z"/>
+                    </svg>
+                  </a>
+                </div>
+              </div>
             </div>
 
-            <div className="rounded-2xl border border-white/60 bg-gradient-to-br from-brand/10 to-brand/5 p-6 shadow-soft">
+            <div className="rounded-2xl border border-white/60 bg-gradient-to-br from-gray-900/5 to-gray-900/0 p-6 shadow-soft">
               <h4 className="font-semibold">Besoin d’un devis ?</h4>
               <p className="mt-1 text-gray-700">
                 Décrivez votre besoin, nous revenons avec une estimation claire.
               </p>
               <a
                 href={`mailto:${to}?subject=${encodeURIComponent("Demande de devis")}`}
-                className="mt-4 inline-flex w-full items-center justify-center rounded-full bg-brand px-5 py-3 text-white transition hover:opacity-90"
+                className="mt-4 inline-flex w-full items-center justify-center rounded-full bg-black px-5 py-3 text-white transition hover:opacity-90"
               >
                 Demander un devis
               </a>
